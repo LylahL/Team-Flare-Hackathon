@@ -1,0 +1,141 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Card variants */
+.card--default {
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.card--outlined {
+  border: 1px solid #E0E0E0;
+  box-shadow: none;
+}
+
+.card--elevated {
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card--flat {
+  border: none;
+  box-shadow: none;
+  background-color: #F5F5F5;
+}
+
+.card--interactive {
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+.card--interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #BDBDBD;
+}
+
+/* Header */
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 20px 12px 20px;
+  border-bottom: 1px solid #F5F5F5;
+}
+
+.card__header-content {
+  flex: 1;
+}
+
+.card__title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.card__subtitle {
+  font-size: 14px;
+  color: #757575;
+  margin: 0;
+}
+
+.card__header-action {
+  margin-left: 16px;
+}
+
+/* Content */
+.card__content {
+  padding: 20px;
+  flex: 1;
+}
+
+/* Footer */
+.card__footer {
+  padding: 16px 20px;
+  border-top: 1px solid #F5F5F5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Loading state */
+.card__loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: inherit;
+}
+
+.card__loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #F5F5F5;
+  border-top-color: #2196F3;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Clickable state */
+.card--clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card--clickable:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card--clickable:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Disabled state */
+.card--disabled {
+  opacity: 0.6;
+  pointer-events: none
+

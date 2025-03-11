@@ -1,0 +1,149 @@
+.document-preview {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  background-color: #f7f9fc;
+  position: relative;
+}
+
+.document-preview-loading,
+.document-preview-error,
+.document-preview-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #6c757d;
+  text-align: center;
+  padding: 20px;
+}
+
+.document-preview-loading {
+  background-color: #f8f9fa;
+}
+
+.document-preview-error {
+  background-color: #fff4f4;
+  color: #dc3545;
+}
+
+/* Image preview */
+.document-preview-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  min-height: 100px;
+}
+
+.document-preview-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* PDF preview */
+.document-preview-pdf-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.document-preview-pdf {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.document-preview-pdf-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.document-preview-pdf-button {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.document-preview-pdf-button:hover {
+  background-color: #3a5bd9;
+}
+
+.document-preview-pdf-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.document-preview-pdf-pages {
+  font-size: 14px;
+  color: #495057;
+}
+
+/* Text file preview */
+.document-preview-text-container {
+  width: 100%;
+  height: 300px;
+  overflow: auto;
+}
+
+.document-preview-text {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: white;
+}
+
+/* Office documents */
+.document-preview-office,
+.document-preview-unsupported {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.document-preview-office-icon,
+.document-preview-unsupported-icon {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #495057;
+}
+
+.document-preview-filename {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 15px;
+  word-break: break-all;
+  max-width: 100%;
+}
+
+.document-preview-download a {
+  display: inline-block;
+  background-color: #4a6cf7;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.document-preview-download a:hover {
+  background-color: #3a5bd9;
+}
+

@@ -1,0 +1,75 @@
+{
+  "name": "immigration-web-app",
+  "version": "1.0.0",
+  "description": "A comprehensive immigration web application that helps users navigate the immigration process",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
+    "server:dev": "cd server && npm run dev",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "test": "npm run test:client && npm run test:server",
+    "test:client": "cd client && npm test",
+    "test:server": "cd server && npm test",
+    "lint": "npm run lint:client && npm run lint:server",
+    "lint:client": "cd client && npm run lint",
+    "lint:server": "cd server && npm run lint",
+    "setup": "npm install && concurrently \"cd client && npm install\" \"cd server && npm install\"",
+    "clean": "rimraf node_modules client/node_modules server/node_modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ryan-ai-champ/Team-Flare-Hackathon.git"
+  },
+  "keywords": [
+    "immigration",
+    "legal",
+    "forms",
+    "assistant",
+    "USCIS",
+    "React",
+    "Node.js",
+    "Express"
+  ],
+  "author": "Team Flare",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ryan-ai-champ/Team-Flare-Hackathon/issues"
+  },
+  "homepage": "https://github.com/Ryan-ai-champ/Team-Flare-Hackathon#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,yml}": [
+      "prettier --write"
+    ]
+  }
+}
+

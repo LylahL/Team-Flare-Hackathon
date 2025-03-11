@@ -1,0 +1,133 @@
+.document-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  border: none;
+  background-color: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.action-button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+  transform: none;
+  box-shadow: none;
+}
+
+.action-icon {
+  font-size: 18px;
+}
+
+.view-button:hover {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.download-button:hover {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.share-button:hover {
+  background-color: #e8eaf6;
+  color: #3f51b5;
+}
+
+.delete-button:hover {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #333;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tooltip styles */
+.action-button::before {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+}
+
+.action-button:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Button click animation */
+.action-button:active {
+  transform: scale(0.95);
+}
+
+/* Loading state animation */
+.action-button.loading {
+  pointer-events: none;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .document-actions {
+    gap: 4px;
+  }
+  
+  .action-button {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .action-icon {
+    font-size: 16px;
+  }
+}
+

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Share Access Revoked</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #FF5858;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .content {
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    .document-info {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 15px 0;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Document Access Revoked</h1>
+    </div>
+    <div class="content">
+      <p>Hello {{recipientName}},</p>
+      
+      <p>This is to inform you that your access to the following document has been revoked:</p>
+      
+      <div class="document-info">
+        <h3>{{documentName}}</h3>
+        <p><strong>Document Type:</strong> {{documentType}}</p>
+        <p><strong>Case Reference:</strong> {{caseReference}}</p>
+        <p><strong>Originally shared by:</strong> {{senderName}}</p>
+        <p><strong>Revocation reason:</strong> {{revocationReason}}</p>
+      </div>
+      
+      <p>The previously shared link will no longer work, and you won't be able to access this document anymore.</p>
+      
+      <p>If you believe this is a mistake or have any questions, please contact {{senderName}} directly.</p>
+      
+      <p>Best regards,<br>
+      The Immigration Platform Team</p>
+    </div>
+    <div class="footer">
+      <p>This is an automated message, please do not reply directly to this email.</p>
+      <p>&copy; {{currentYear}} Immigration Platform. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
+

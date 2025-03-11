@@ -1,0 +1,125 @@
+.shared-document-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  min-height: 80vh;
+}
+
+.shared-document-container.loading,
+.shared-document-container.error {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.shared-document-header {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.shared-document-header h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.shared-document-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.shared-document-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: auto;
+  padding: 1rem 0;
+}
+
+.shared-document-preview {
+  max-width: 100%;
+  max-height: 70vh;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+}
+
+.shared-document-actions {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.download-button,
+.edit-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.download-button {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.download-button:hover {
+  background-color: #e9ecef;
+}
+
+.edit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.edit-button:hover {
+  background-color: #0069d9;
+}
+
+.error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.expiration-message {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.expiring-soon {
+  color: #fa8c16;
+  font-weight: 500;
+}
+
+.permissions-note {
+

@@ -1,0 +1,257 @@
+.document-viewer-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.document-viewer-modal {
+  background-color: #ffffff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 900px;
+  height: 90vh;
+  max-height: 800px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.document-viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.document-title {
+  margin: 0;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.close-button:hover {
+  background-color: #f0f0f0;
+}
+
+.document-viewer-content {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+}
+
+.document-viewer-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* PDF Viewer Styles */
+.pdf-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pdf-controls {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.page-control-button {
+  background-color: #4a69bd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.page-control-button:hover {
+  background-color: #3c5894;
+}
+
+.page-control-button:disabled {
+  background-color: #9eb4e1;
+  cursor: not-allowed;
+}
+
+.page-info {
+  margin: 0 12px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Image Viewer Styles */
+.image-container {
+  display: flex;
+  justify-content: center;
+  max-height: 100%;
+  width: 100%;
+}
+
+.document-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Error State Styles */
+.document-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  color: #e53935;
+}
+
+.error-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #ffebee;
+  color: #e53935;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.retry-button {
+  margin-top: 16px;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.retry-button:hover {
+  background-color: #c62828;
+}
+
+/* Loading State Styles */
+.document-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.document-loading p {
+  margin-top: 16px;
+  color: #555;
+}
+
+/* Unsupported File Type Styles */
+.unsupported-file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px;
+}
+
+.file-icon {
+  font-size: 4rem;
+  color: #90a4ae;
+  margin-bottom: 16px;
+}
+
+.document-download-prompt {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #e3f2fd;
+  border-radius: 8px;
+}
+
+.download-button {
+  margin-top: 12px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.download-button:hover {
+  background-color: #1976d2;
+}
+
+/* Office Viewer Styles */
+.office-viewer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .document-viewer-modal {
+    width: 95%;
+    height: 95vh;
+  }
+  
+  .document-title {
+    font-size: 1rem;
+  }
+  
+  .document-viewer-content {
+    padding: 16px;
+  }
+  
+  .pdf-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
