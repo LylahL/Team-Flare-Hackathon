@@ -14,8 +14,13 @@ A full-stack web application for an immigration platform with a forum and integr
 
 ## Overview
 
-- **Purpose**: TODO
-- **Features**: TODO
+- **Purpose**: A comprehensive platform for immigration-related services, including forum discussions, legal Q&A powered by ChatGPT, administrative controls, and advanced analytics.
+- **Features**:
+  - **Analytics Dashboard**: Visualize immigration trends and generate reports with interactive charts.
+  - **Notification System**: Real-time updates with mark as read and mark all as read functionality.
+  - **Admin Dashboard**: Manage users, content, and system settings with ease.
+  - **Forum Integration**: Engage in discussions with other users and experts.
+  - **ChatGPT Q&A**: Get instant answers to immigration-related questions using AI.
 
 ---
 
@@ -57,7 +62,11 @@ my-immigration-platform/
 ---
 
 ## Technologies Used
-  TO BE UPDATE
+- **Frontend**  
+  - [React](https://reactjs.org/)  
+  - [react-scripts](https://www.npmjs.com/package/react-scripts)
+  - [Chart.js](https://www.chartjs.org/) (for data visualization)
+  - [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) (real-time notifications)
 
 - **Frontend**  
   - [React](https://reactjs.org/)  
