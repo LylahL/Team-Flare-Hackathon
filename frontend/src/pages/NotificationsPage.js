@@ -19,8 +19,46 @@ import {
   Notifications as NotificationsIcon
 } from '@mui/icons-material';
 
-// In a real application, this would be fetched from an API
-const mockNotifications = [
+const [socket, setSocket] = useState(null);
+
+useEffect(() => {
+  const ws = new WebSocket('wss://api.example.com/notifications');
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    setNotifications((prevNotifications) => [data, ...prevNotifications]);
+  };
+  setSocket(ws);
+
+  return () => ws.close();
+}, []);
+
+const sendNotification = (channel, message, priority = 'normal') => {
+  const notification = {
+    id: Date.now(),
+    title: 'New Notification',
+    message,
+    timestamp: new Date().toISOString(),
+    isRead: false,
+    type: 'system',
+    channel,
+    priority
+  };
+
+  // Send notification to backend
+  socket.send(JSON.stringify(notification));
+};
+
+const handleSendEmailNotification = () => {
+  sendNotification('email', 'You have a new case update.');
+};
+
+const handleSendSmsNotification = () => {
+  sendNotification('sms', 'Your appointment is tomorrow.');
+};
+
+const handleSendPushNotification = () => {
+  sendNotification('push', 'Your payment was received.');
+};
   {
     id: 1,
     title: 'Case Status Update',
@@ -153,6 +191,28 @@ const NotificationsPage = () => {
               onClick={handleMarkAllAsRead}
             >
               Mark All as Read
+            </Button>
+            <Button 
+              variant="contained" 
+              color="secondary"
+              onClick={handleSendEmailNotification}
+              sx={{ ml: 2 }}
+            >
+              Send Email
+            </Button>
+            <Button 
+              variant="contained" 
+              onClick={handleSendSmsNotification}
+              sx={{ ml: 2 }}
+            >
+              Send SMS
+            </Button>
+            <Button 
+              variant="contained" 
+              onClick={handleSendPushNotification}
+              sx={{ ml: 2 }}
+            >
+              Send Push
             </Button>
           )}
         </Box>

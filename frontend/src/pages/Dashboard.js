@@ -21,7 +21,7 @@ import {
   Avatar,
   Badge,
   CircularProgress
-} from '@mui/material';
+} from '@mui/material';\nimport { \n  Menu as MenuIcon, \n  FileDownload as ExportIcon,\n
 import { 
   Menu as MenuIcon, 
   Notifications as NotificationsIcon, 
@@ -32,7 +32,7 @@ import {
   Forum as ForumIcon,
   ExitToApp as LogoutIcon
 } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';\nimport axios from 'axios';\nimport { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';\nimport { Bar } from 'react-chartjs-2';\nimport { saveAs } from 'file-saver';\n\nChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);\n
 import axios from 'axios';
 
 // Sample case data (replace with actual API call in production)
@@ -82,7 +82,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [cases, setCases] = useState(SAMPLE_CASES);
-  const [notifications, setNotifications] = useState(SAMPLE_NOTIFICATIONS);
+  const [notifications, setNotifications] = useState(SAMPLE_NOTIFICATIONS);\n  const [drawerOpen, setDrawerOpen] = useState(false);\n\n  // Immigration trends data\n  const immigrationTrendsData = {\n    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],\n    datasets: [\n      {\n        label: 'Applications',\n        data: [120, 190, 300, 500, 200, 300, 400],\n        backgroundColor: '#1976d2',\n      },\n    ],\n  };\n\n  const handleExportReport = () => {\n    const blob = new Blob([JSON.stringify(cases)], { type: 'application/json;charset=utf-8' });\n    saveAs(blob, 'immigration-report.json');\n  };\n
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [user, setUser] = useState({
     name: 'John Doe',
@@ -279,7 +279,7 @@ const Dashboard = () => {
               </Paper>
 
               <Grid container spacing={3}>
-                {/* Cases Overview */}
+                {/* Analytics Dashboard */}\n                <Grid item xs={12} md={8}>\n                  <Paper sx={{ p: 2, mb: 3 }}>\n                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>\n                      <Typography variant="h6" gutterBottom>\n                        Immigration Trends\n                      </Typography>\n                      <Button\n                        variant="outlined"\n                        startIcon={<ExportIcon />}\n                        onClick={handleExportReport}\n                      >\n                        Export Report\n                      </Button>\n                    </Box>\n                    <Divider sx={{ mb: 2 }} />\n                    <Box sx={{ height: '400px' }}>\n                      <Bar\n                        options={{\n                          responsive: true,\n                          maintainAspectRatio: false,\n                        }}\n                        data={immigrationTrendsData}\n                      />\n                    </Box>\n                  </Paper>\n\n                  {/* Cases Overview */}\n                  <Paper sx={{ p: 2 }}>
                 <Grid item xs={12} md={8}>
                   <Paper sx={{ p: 2 }}>
                     <Typography variant="h6" gutterBottom>

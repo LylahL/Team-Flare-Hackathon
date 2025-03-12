@@ -1,3 +1,12 @@
+# Lawfully Immigration Platform
+
+## Key Features
+
+### AI-Powered Assistance
+- **Personalized Guidance**: Receive customized advice based on your specific immigration situation.
+- **Case Challenge Predictions**: Identify potential issues early with AI-driven insights.
+- **Form Support**: Simplify complex form-filling processes with intelligent assistance.
+
 # 🌟 Lawfully - The Modern Immigration Platform 🌟
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -65,7 +74,7 @@ Our platform combines cutting-edge technology with immigration expertise to prov
 
 Lawfully leverages modern technology to deliver a secure, scalable, and intuitive platform:
 
-- **Frontend**: React.js with Material UI for a responsive, user-friendly interface
+- **Frontend**: React.js with Material UI and Chart.js for responsive, user-friendly interface and data visualization\n- **Backend**: Node.js and Express providing a robust API infrastructure\n- **Database**:
 - **Backend**: Node.js and Express providing a robust API infrastructure
 - **Database**: MongoDB for flexible data storage and retrieval
 - **AI Components**: Natural Language Processing for document analysis and chatbot functionality

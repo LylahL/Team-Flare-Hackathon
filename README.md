@@ -1,4 +1,30 @@
-# Lawfully
+# Project Name
+
+## Community Forum Feature
+
+This project now includes a Community Forum feature that allows users to:
+
+### Features
+- Create and view discussion posts
+- Reply to existing posts
+- Organize discussions by topics
+- Track user activity and discussion history
+
+### Components
+- `ForumPage`: Main page that displays all forum posts and manages discussions
+- `ForumPost`: Component that renders individual posts and handles replies
+
+
+# Immigration Application Platform
+
+## Features
+
+### AI Capabilities
+- **Personalized Guidance**: Get tailored advice based on user profiles and case details.
+- **Predictive Case Mapping**: Foresee potential challenges before they arise.
+- **Form Completion Assistance**: AI-powered help with completing immigration forms.
+
+# Lawfully\n\nA full-stack web application for an immigration platform with a forum, integrated ChatGPT Q&A, and advanced analytics. Built with **React** (frontend) and **Node.js/Express** (backend) in a single repository structure.
 
 A full-stack web application for an immigration platform with a forum and integrated ChatGPT Q&A. Built with **React** (frontend) and **Node.js/Express** (backend) in a single repository structure.
 
@@ -17,8 +43,9 @@ A full-stack web application for an immigration platform with a forum and integr
 - **Purpose**: A comprehensive platform for immigration-related services, including forum discussions, legal Q&A powered by ChatGPT, administrative controls, and advanced analytics.
 - **Features**:
   - **Analytics Dashboard**: Visualize immigration trends and generate reports with interactive charts.
+  - **Analytics Dashboard**: Visualize immigration trends and generate reports with interactive charts.
   - **Notification System**: Real-time updates with mark as read and mark all as read functionality.
-  - **Admin Dashboard**: Manage users, content, and system settings with ease.
+  - **Multi-language Support**: Seamlessly switch between multiple languages with culturally-specific guidance and localized resources.
   - **Forum Integration**: Engage in discussions with other users and experts.
   - **ChatGPT Q&A**: Get instant answers to immigration-related questions using AI.
 

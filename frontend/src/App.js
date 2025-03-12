@@ -1,9 +1,26 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AIAssistantPage from './pages/AIAssistantPage';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/ai-assistant" element={<AIAssistantPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n/config';
 
-// Import pages
 // Import pages
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -11,7 +28,7 @@ import Dashboard from './pages/Dashboard';
 import CasesPage from './pages/CasesPage';
 import ProfilePage from './pages/ProfilePage';
 import NotificationsPage from './pages/NotificationsPage';
-import Navbar from './components/Navbar';
+import ChatGPTQAPage from './pages/ChatGPTQAPage';
 import Layout from './components/Layout';
 // Create a theme
 const theme = createTheme({
@@ -55,8 +72,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        <Routes>
+      <I18nextProvider i18n={i18n}>
+        <Router>
+          <Routes>
           {/* Public Routes */}
           <Route 
             path="/login" 
@@ -156,6 +174,14 @@ function App() {
               </ProtectedRoute>
             } 
           />
+          <Route 
+            path="/chatgpt" 
+            element={
+              <ProtectedRoute>
+                <ChatGPTQAPage />
+              </ProtectedRoute>
+            } 
+          />
           
           {/* Redirect to login by default */}
           <Route path="/" element={<Navigate to="/login" replace />} />
@@ -163,7 +189,8 @@ function App() {
           {/* Catch all route - 404 page */}
           <Route path="*" element={<div>404 Page Not Found</div>} />
         </Routes>
-      </Router>
+        </Router>
+      </I18nextProvider>
     </ThemeProvider>
   );
 }

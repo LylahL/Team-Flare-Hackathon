@@ -13,22 +13,56 @@ import {
   TextField,
   Box,
   CircularProgress,
-  IconButton
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import { 
   Search as SearchIcon,
   Delete as DeleteIcon,
   Visibility as ViewIcon,
-  Download as DownloadIcon
+  Download as DownloadIcon,
+  History as HistoryIcon,
+  MoreVert as MoreIcon
 } from '@mui/icons-material';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+
+// OCR service configuration
+const OCR_SERVICE_URL = process.env.REACT_APP_OCR_SERVICE_URL;
 
 // Mock data - replace with API calls in production
 const MOCK_DOCUMENTS = [
-  { id: 1, name: 'Passport.pdf', type: 'ID', uploadDate: '2023-05-15', size: '2.4 MB' },
-  { id: 2, name: 'Birth Certificate.pdf', type: 'ID', uploadDate: '2023-05-16', size: '1.8 MB' },
-  { id: 3, name: 'Employment Letter.pdf', type: 'Employment', uploadDate: '2023-05-20', size: '1.2 MB' },
-  { id: 4, name: 'Tax Return 2022.pdf', type: 'Financial', uploadDate: '2023-05-22', size: '3.5 MB' },
-  { id: 5, name: 'Medical Exam.pdf', type: 'Medical', uploadDate: '2023-06-01', size: '4.1 MB' },
+  {
+    id: uuidv4(),
+    name: 'Passport.pdf',
+    type: 'ID',
+    uploadDate: '2023-05-15',
+    size: '2.4 MB',
+    versions: [
+      {
+        version: 1,
+        date: '2023-05-15',
+        changes: 'Initial upload',
+        extractedData: {
+          fullName: 'John Doe',
+          passportNumber: '123456789',
+          nationality: 'USA',
+          birthDate: '1990-01-01'
+        }
+      }
+    ],
+    currentVersion: 1,
+    status: 'Processed'
+  }
 ];
 
 const DocumentsPage = () => {
@@ -36,6 +70,13 @@ const DocumentsPage = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [fileToUpload, setFileToUpload] = useState(null);
+  const [openVersionDialog, setOpenVersionDialog] = useState(false);
+  const [selectedDocumentId, setSelectedDocumentId] = useState(null);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
 
   useEffect(() => {
     // Simulate API call
@@ -55,22 +96,61 @@ const DocumentsPage = () => {
     }
   };
 
-  const handleUpload = () => {
-    if (fileToUpload) {
-      // Simulate document upload
+  const handleUpload = async () => {
+    if (!fileToUpload) return;
+
+    setLoading(true);
+    
+    try {
+      // Process file for OCR
+      const formData = new FormData();
+      formData.append('file', fileToUpload);
+
+      const ocrResponse = await axios.post(`${OCR_SERVICE_URL}/process`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      const extractedData = ocrResponse.data;
+
+      // Create new document with version history
       const newDoc = {
-        id: documents.length + 1,
+        id: uuidv4(),
         name: fileToUpload.name,
-        type: 'Other',
+        type: fileToUpload.type || 'Other',
         uploadDate: new Date().toISOString().split('T')[0],
-        size: `${(fileToUpload.size / (1024 * 1024)).toFixed(1)} MB`
+        size: `${(fileToUpload.size / (1024 * 1024)).toFixed(1)} MB`,
+        versions: [
+          {
+            version: 1,
+            date: new Date().toISOString().split('T')[0],
+            changes: 'Initial upload',
+            extractedData
+          }
+        ],
+        currentVersion: 1,
+        status: 'Processed'
       };
-      
+
       setDocuments([...documents, newDoc]);
       setFileToUpload(null);
-      
-      // Reset file input
       document.getElementById('document-upload').value = '';
+      
+      setSnackbar({
+        open: true,
+        message: 'Document uploaded and processed successfully!',
+        severity: 'success'
+      });
+    } catch (error) {
+      console.error('Error during document processing:', error);
+      setSnackbar({
+        open: true,
+        message: 'Error processing document',
+        severity: 'error'
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,12 +158,29 @@ const DocumentsPage = () => {
     setDocuments(documents.filter(doc => doc.id !== id));
   };
 
+  const handleViewVersions = (documentId) => {
+    setSelectedDocumentId(documentId);
+    setOpenVersionDialog(true);
+  };
+
   const filteredDocuments = documents.filter(doc => 
     doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     doc.type.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const selectedDocument = documents.find(doc => doc.id === selectedDocumentId);
+
   return (
+    <>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+      >
+        <Alert severity={snackbar.severity} sx={{ width: '100%' }}>
+          {snackbar.message}
+        </Alert>
+      </Sn
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" gutterBottom>
         Documents
