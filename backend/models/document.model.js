@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
-
-const documentSchema = new mongoose.Schema({
-    // Add your document schema fields here
-});
-
-module.exports = mongoose.model('Document', documentSchema);
-
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const documentSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User',
+    ref: "User",
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
   },
   fileName: {
     type: String,
@@ -22,39 +22,14 @@ const documentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  uploadDate: {
+  createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = mongoose.model('Document', documentSchema);
-
-const mongoose = require('mongoose');
-
-const documentSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    content: {
-        type: String,
-        required: true
-    },
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now
-    }
-});
-
-module.exports = mongoose.model('Document', documentSchema);
-
+module.exports = mongoose.model("Document", documentSchema);

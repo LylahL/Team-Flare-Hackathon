@@ -1,43 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
-function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    // Fetch data from the backend
-    axios.get('http://localhost:5000/')
-      .then(response => {
-        setMessage(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data from backend:', error);
-      });
-  }, []);
-
-  return (
-    <div className="App">
-      <h1>Frontend is running</h1>
-      <p>Backend says: {message}</p>
-    </div>
-  );
-}
-
-export default App;
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+
+// Material-UI imports
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// Import pages
-// Import pages
+// Page imports
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Dashboard from './pages/Dashboard';
 import CasesPage from './pages/CasesPage';
+import CaseDetailsPage from './pages/CaseDetailsPage';
+import CaseEditPage from './pages/CaseEditPage';
 import ProfilePage from './pages/ProfilePage';
 import NotificationsPage from './pages/NotificationsPage';
+
+// Component imports
 import Navbar from './components/Navbar';
 import Layout from './components/Layout';
 // Create a theme
@@ -56,7 +34,6 @@ const theme = createTheme({
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('token') !== null;
   const location = useLocation();
-
   if (!isAuthenticated) {
     // Redirect to login if not authenticated, save the attempted location
     return <Navigate to="/login" state={{ from: location }} replace />;
@@ -112,10 +89,18 @@ function App() {
             } 
           />
           <Route 
-            path="/cases/:caseId" 
+            path="/cases/:id" 
             element={
               <ProtectedRoute>
-                <div>Case Details Page (to be implemented)</div>
+                <CaseDetailsPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/cases/:id/edit" 
+            element={
+              <ProtectedRoute>
+                <CaseEditPage />
               </ProtectedRoute>
             } 
           />
@@ -131,7 +116,7 @@ function App() {
             path="/cases/new" 
             element={
               <ProtectedRoute>
-                <div>New Case Page (to be implemented)</div>
+                <CaseEditPage />
               </ProtectedRoute>
             } 
           />

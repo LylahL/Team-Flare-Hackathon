@@ -28,7 +28,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArticleIcon from '@mui/icons-material/Article';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { logout } from '../store'; // Assuming logout action is exported from store
+import { logout } from '../store/slices/authSlice'; // Import directly from authSlice
 
 const Navbar = () => {
   const navigate = useNavigate();

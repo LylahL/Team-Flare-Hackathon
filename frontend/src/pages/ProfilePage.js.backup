@@ -428,7 +428,4 @@ const ProfilePage = () => {
         </Alert>
       </Snackbar>
 </Container>
-);
-};
-
 export default ProfilePage;

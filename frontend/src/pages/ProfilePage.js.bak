@@ -428,7 +428,8 @@ const ProfilePage = () => {
         </Alert>
       </Snackbar>
 </Container>
-);
+  </Container>
+  );
 };
 
 export default ProfilePage;

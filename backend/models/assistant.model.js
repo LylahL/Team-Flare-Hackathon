@@ -1,10 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const assistantSchema = new mongoose.Schema({
   sessionId: {
     type: String,
     required: true,
     unique: true,
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true,
+    default: "assistant"
   },
   query: {
     type: String,
@@ -18,31 +27,10 @@ const assistantSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = mongoose.model('Assistant', assistantSchema);
-
-const mongoose = require('mongoose');
-
-const assistantSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    role: {
-        type: String,
-        required: true,
-        default: 'assistant'
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now
-    }
-});
-
-module.exports = mongoose.model('Assistant', assistantSchema);
-
+module.exports = mongoose.model("Assistant", assistantSchema);
