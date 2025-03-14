@@ -5,6 +5,10 @@ const { verifyToken } = require('../middleware/auth.middleware');
 
 const router = express.Router();
 
+// Log auth controller functions
+console.log('Login Function:', authController.login);
+console.log('Register Function:', authController.register);
+
 /**
  * @route POST /api/auth/register
  * @desc Register a new user

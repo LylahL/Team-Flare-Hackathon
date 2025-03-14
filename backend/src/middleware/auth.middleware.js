@@ -154,11 +154,6 @@ exports.verifyApiKey = catchAsync(async (req, res, next) => {
   next();
 });
 
-const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
-const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
-
 /**
  * Middleware to protect routes by verifying JWT tokens
  * Extracts token from Authorization header and verifies its validity

@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
 dotenv.config();
 
 // Import routes
+// Import routes
 const authRoutes = require('./routes/auth.routes');
 const caseRoutes = require('./routes/case.routes');
 const documentRoutes = require('./routes/document.routes');
@@ -22,6 +23,16 @@ const notificationRoutes = require('./routes/notification.routes');
 const paymentRoutes = require('./routes/payment.routes');
 const assistantRoutes = require('./routes/assistant.routes');
 const userRoutes = require('./routes/user.routes');
+
+// Log routes loading
+console.log('Auth Routes loaded:', authRoutes);
+console.log('Case Routes loaded:', caseRoutes);
+console.log('Document Routes loaded:', documentRoutes);
+console.log('Form Routes loaded:', formRoutes);
+console.log('Notification Routes loaded:', notificationRoutes);
+console.log('Payment Routes loaded:', paymentRoutes);
+console.log('Assistant Routes loaded:', assistantRoutes);
+console.log('User Routes loaded:', userRoutes);
 
 // Import error handling utilities
 const AppError = require('./utils/appError');
