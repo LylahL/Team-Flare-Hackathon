@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -92,12 +92,17 @@ const userSchema = new mongoose.Schema({
     default: false
   },
   verificationToken: String,
+  verificationTokenExpire: Date,
   twoFactorAuth: {
     enabled: {
       type: Boolean,
       default: false
     },
     secret: String
+  },
+  refreshToken: {
+    token: String,
+    expires: Date
   },
   lastLogin: Date,
   activeCases: [{
@@ -144,10 +149,32 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
 // Method to generate JWT token
 userSchema.methods.generateAuthToken = function() {
   return jwt.sign(
-    { id: this._id, role: this.role },
+    { 
+      id: this._id, 
+      role: this.role,
+      email: this.email,
+      emailVerified: this.emailVerified
+    },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRE }
   );
+};
+
+// Method to generate refresh token
+userSchema.methods.generateRefreshToken = function() {
+  // Generate a random token
+  const refreshToken = crypto.randomBytes(40).toString('hex');
+  
+  // Set expiration (7 days)
+  const expiresIn = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  
+  // Save to user document
+  this.refreshToken = {
+    token: refreshToken,
+    expires: new Date(expiresIn)
+  };
+  
+  return refreshToken;
 };
 
 // Method to generate password reset token
@@ -165,6 +192,35 @@ userSchema.methods.generatePasswordResetToken = function() {
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
   
   return resetToken;
+};
+
+// Method to generate email verification token
+userSchema.methods.generateVerificationToken = function() {
+  // Generate token
+  const verificationToken = crypto.randomBytes(20).toString('hex');
+  
+  // Hash token and set to verificationToken field
+  this.verificationToken = crypto
+    .createHash('sha256')
+    .update(verificationToken)
+    .digest('hex');
+  
+  // Set token expiration time (24 hours)
+  this.verificationTokenExpire = Date.now() + 24 * 60 * 60 * 1000;
+  
+  return verificationToken;
+};
+
+// Check if user has specific permissions
+userSchema.methods.hasPermission = function(permission) {
+  const rolePermissions = {
+    'client': ['view_own_cases', 'submit_documents', 'update_profile'],
+    'paralegal': ['view_own_cases', 'view_assigned_cases', 'submit_documents', 'update_profile', 'add_notes'],
+    'attorney': ['view_own_cases', 'view_assigned_cases', 'view_all_cases', 'submit_documents', 'update_profile', 'add_notes', 'manage_cases'],
+    'admin': ['view_own_cases', 'view_assigned_cases', 'view_all_cases', 'submit_documents', 'update_profile', 'add_notes', 'manage_cases', 'manage_users', 'manage_settings']
+  };
+  
+  return rolePermissions[this.role]?.includes(permission) || false;
 };
 
 let User;

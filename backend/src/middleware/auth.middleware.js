@@ -1,4 +1,141 @@
 const jwt = require('jsonwebtoken');
+const { ApiError } = require('../utils/apiError');
+const config = require('../config/config');
+const User = require('../models/user.model');
+const asyncWrapper = require('../utils/asyncWrapper');
+const logger = require('../utils/logger');
+
+/**
+ * Middleware to verify JWT token from Authorization header
+ * @returns {Function} Express middleware
+ */
+const verifyToken = asyncWrapper(async (req, res, next) => {
+  // Get the token from the Authorization header
+  const authHeader = req.headers.authorization;
+  
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    throw new ApiError(401, 'Unauthorized - No token provided');
+  }
+
+  const token = authHeader.split(' ')[1];
+  
+  try {
+    // Verify the token
+    const decoded = jwt.verify(token, config.jwt.secret);
+    
+    // Find the user by id
+    const user = await User.findById(decoded.id).select('-password');
+    
+    if (!user) {
+      throw new ApiError(401, 'Unauthorized - User not found');
+    }
+    
+    // Check if token is issued before password change
+    if (user.passwordChangedAt && decoded.iat < user.passwordChangedAt.getTime() / 1000) {
+      throw new ApiError(401, 'Unauthorized - Password recently changed, please login again');
+    }
+    
+    // Add user to request object
+    req.user = user;
+    next();
+  } catch (error) {
+    if (error.name === 'JsonWebTokenError') {
+      throw new ApiError(401, 'Unauthorized - Invalid token');
+    } else if (error.name === 'TokenExpiredError') {
+      throw new ApiError(401, 'Unauthorized - Token expired');
+    } else {
+      logger.error(`Auth middleware error: ${error.message}`);
+      throw error;
+    }
+  }
+});
+
+/**
+ * Middleware to check if user has required roles
+ * @param {...String} roles - Roles allowed to access the route
+ * @returns {Function} Express middleware
+ */
+const authorize = (...roles) => {
+  return (req, res, next) => {
+    if (!req.user) {
+      throw new ApiError(500, 'User not found in request. Ensure verifyToken middleware is used first.');
+    }
+    
+    if (!roles.includes(req.user.role)) {
+      throw new ApiError(403, `Forbidden - ${req.user.role} role is not authorized to access this resource`);
+    }
+    
+    next();
+  };
+};
+
+/**
+ * Middleware to check if user is accessing their own resource or is an admin
+ * @param {String} paramName - Name of the user ID parameter in the URL
+ * @returns {Function} Express middleware
+ */
+const isOwnerOrAdmin = (paramName = 'userId') => {
+  return (req, res, next) => {
+    if (!req.user) {
+      throw new ApiError(500, 'User not found in request. Ensure verifyToken middleware is used first.');
+    }
+    
+    const paramId = req.params[paramName];
+    
+    if (req.user.role === 'admin' || req.user.id === paramId) {
+      next();
+    } else {
+      throw new ApiError(403, 'Forbidden - You are not authorized to access this resource');
+    }
+  };
+};
+
+/**
+ * Middleware to verify refresh token for token refresh process
+ * @returns {Function} Express middleware
+ */
+const verifyRefreshToken = asyncWrapper(async (req, res, next) => {
+  const { refreshToken } = req.body;
+  
+  if (!refreshToken) {
+    throw new ApiError(400, 'Refresh token is required');
+  }
+  
+  try {
+    // Verify the refresh token
+    const decoded = jwt.verify(refreshToken, config.jwt.refreshSecret);
+    
+    // Find the user by id
+    const user = await User.findById(decoded.id).select('-password');
+    
+    if (!user) {
+      throw new ApiError(401, 'Unauthorized - User not found');
+    }
+    
+    // Add user to request object
+    req.user = user;
+    req.refreshToken = refreshToken;
+    next();
+  } catch (error) {
+    if (error.name === 'JsonWebTokenError') {
+      throw new ApiError(401, 'Unauthorized - Invalid refresh token');
+    } else if (error.name === 'TokenExpiredError') {
+      throw new ApiError(401, 'Unauthorized - Refresh token expired');
+    } else {
+      logger.error(`Refresh token middleware error: ${error.message}`);
+      throw error;
+    }
+  }
+});
+
+module.exports = {
+  verifyToken,
+  authorize,
+  isOwnerOrAdmin,
+  verifyRefreshToken
+};
+
+const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const User = require('../models/user.model');
 const catchAsync = require('../utils/catchAsync');

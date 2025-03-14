@@ -1,3 +1,30 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function App() {
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    // Fetch data from the backend
+    axios.get('http://localhost:5000/')
+      .then(response => {
+        setMessage(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data from backend:', error);
+      });
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>Frontend is running</h1>
+      <p>Backend says: {message}</p>
+    </div>
+  );
+}
+
+export default App;
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';

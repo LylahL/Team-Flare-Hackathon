@@ -1,5 +1,13 @@
-import express from 'express';
-import { register, login, logout, getProfile, updateProfile, forgotPassword, resetPassword } from '../controllers/authController.js';
+const express = require('express');
+const { 
+  register, 
+  login, 
+  logout, 
+  getMe: getProfile, 
+  updateMe: updateProfile, 
+  forgotPassword, 
+  resetPassword 
+} = require('../controllers/auth.controller');
 
 const router = express.Router();
 
@@ -24,5 +32,4 @@ router.post('/forgot-password', forgotPassword);
 // Reset password
 router.post('/reset-password', resetPassword);
 
-export default router;
-
+module.exports = router;
